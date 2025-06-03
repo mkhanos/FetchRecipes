@@ -14,25 +14,25 @@ final class RecipeViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var isLoading: Bool
     
-    private let recipesService: RecipeServiceProtocol
+    private let recipeService: RecipeServiceProtocol
     
     init(recipesService: RecipeServiceProtocol) {
-        self.recipesService = recipesService
+        self.recipeService = recipesService
         self.recipes = []
         self.errorMessage = nil
         self.isLoading = false
     }
     
     func loadRecipes() async {
-        await load(using: recipesService.fetchRecipes)
+        await load(using: recipeService.fetchRecipes)
     }
     
     func loadEmpty() async {
-        await load(using: recipesService.fetchEmpty)
+        await load(using: recipeService.fetchEmpty)
     }
     
     func loadMalformed() async {
-        await load(using: recipesService.fetchMalformed)
+        await load(using: recipeService.fetchMalformed)
     }
     
     private func load(using serviceEndpoint: @escaping () async throws -> [Recipe]?) async {
