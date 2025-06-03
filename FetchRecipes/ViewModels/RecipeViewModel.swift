@@ -12,6 +12,7 @@ import SwiftUI
 final class RecipeViewModel: ObservableObject {
     @Published var recipes: [Recipe]
     @Published var errorMessage: String?
+    @Published var showAlert: Bool
     @Published var isLoading: Bool
     
     private let recipeService: RecipeServiceProtocol
@@ -21,6 +22,7 @@ final class RecipeViewModel: ObservableObject {
         self.recipes = []
         self.errorMessage = nil
         self.isLoading = false
+        self.showAlert = false
     }
     
     func loadRecipes() async {
@@ -49,8 +51,10 @@ final class RecipeViewModel: ObservableObject {
         } catch let error as NetworkError {
             recipes = []
             self.errorMessage = error.localizedDescription
+            self.showAlert = true
         } catch {
             self.errorMessage = "Unknown error"
+            self.showAlert = true
             recipes = []
         }
     }

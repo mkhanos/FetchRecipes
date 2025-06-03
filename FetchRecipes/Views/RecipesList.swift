@@ -54,6 +54,11 @@ struct RecipesList: View {
         }
         .padding(.horizontal)
         .navigationTitle("Recipes")
+        .alert("Error", isPresented: $viewModel.showAlert) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(viewModel.errorMessage ?? "Unknown Error")
+        }
         .task {
             await viewModel.loadRecipes()
         }
