@@ -10,6 +10,7 @@ import XCTest
 @testable import FetchRecipes
 
 final class MockNetworkClient: Mockable, NetworkClientProtocol {
+    var error: Error? = nil
     func sendRequest<T: Decodable>(endpoint: APIEndpoint, response: T.Type) async throws -> T {
         return try loadJSON(filename: endpoint.mockFile, type: response.self)
     }
