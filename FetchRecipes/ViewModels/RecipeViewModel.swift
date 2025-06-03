@@ -75,26 +75,7 @@ final class RecipeViewModel: ObservableObject {
             }
         } catch let error as NetworkError {
             recipes = []
-            switch error {
-            case .badURL:
-                self.errorMessage = "Bad URL"
-            case .decoding(let message):
-                self.errorMessage = message
-            case .unknown(let message):
-                self.errorMessage = message
-            case .badRequest:
-                self.errorMessage = "Bad request"
-            case .forbidden:
-                self.errorMessage = "Forbidden"
-            case .notFound:
-                self.errorMessage = "Not Found"
-            case .serverError:
-                self.errorMessage = "Server error"
-            case .unknownStatus(let statusCode):
-                self.errorMessage = "Server returned status code \(statusCode)"
-            case .invalidResponse:
-                self.errorMessage = "Invalid response"
-            }
+            self.errorMessage = error.localizedDescription
         } catch {
             self.errorMessage = "Unknown error"
             recipes = []

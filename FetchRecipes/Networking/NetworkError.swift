@@ -18,3 +18,19 @@ enum NetworkError: Error {
     case unknownStatus(Int)
     case invalidResponse
 }
+
+extension NetworkError: LocalizedError {
+    var errorDescription: String? {
+        switch self {
+        case .badURL: return "Bad URL"
+        case .decoding(let message): return message
+        case .unknown(let message): return message
+        case .badRequest: return "Bad request"
+        case .forbidden: return "Forbidden"
+        case .notFound: return "Not Found"
+        case .serverError: return "Server error"
+        case .unknownStatus(let code): return "Server returned status code \(code)"
+        case .invalidResponse: return "Invalid response"
+        }
+    }
+}
