@@ -20,7 +20,9 @@ struct FetchRecipesApp: App {
     }
     var body: some Scene {
         WindowGroup {
-            RecipesList(viewModel: recipeViewModel)
+            NavigationView {
+                RecipesList(viewModel: recipeViewModel)
+            }
         }
     }
 }
