@@ -16,19 +16,19 @@ final class NetworkClientTests: XCTestCase {
         mockClient = MockNetworkClient()
     }
     
-    func testSuccessfulRecipesResponse() async {
-        let result = try! await mockClient.sendRequest(endpoint: RecipeEndpoints.recipes, response: RecipeResponse.self)
+    func testRecipesEndpointSuccess() async {
+        let result = try! await mockClient.sendRequest(endpoint: RecipeEndpoint.recipes, response: RecipeResponse.self)
         XCTAssertTrue(result.recipes!.count == 5)
     }
     
-    func testEmptyRecipeResponse() async {
-        let result = try! await mockClient.sendRequest(endpoint: RecipeEndpoints.empty, response: RecipeResponse.self)
+    func testEmptyEndpointSuccess() async {
+        let result = try! await mockClient.sendRequest(endpoint: RecipeEndpoint.empty, response: RecipeResponse.self)
         XCTAssertTrue(result.recipes!.isEmpty)
     }
     
-    func testThrowsDecodingErrorOnMalformedRecipes() async throws {
+    func testMalformedEndpointFailure() async throws {
         do {
-            let _ = try await mockClient.sendRequest(endpoint: RecipeEndpoints.malformed, response: RecipeResponse.self)
+            let _ = try await mockClient.sendRequest(endpoint: RecipeEndpoint.malformed, response: RecipeResponse.self)
             XCTFail("Expected decoding to fail")
         } catch {
             XCTAssertTrue(error is DecodingError)
