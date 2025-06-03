@@ -15,12 +15,18 @@ struct RecipesList: View {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
     var body: some View {
-        List {
-            ForEach(viewModel.recipes, id: \.uuid) { recipe in
-                RecipeRow(recipe: recipe)
+        ScrollView {
+            LazyVStack {
+                ForEach(viewModel.recipes, id: \.uuid) { recipe in
+                    RecipeRow(recipe: recipe)
+                }
             }
+            .padding(.horizontal)
         }
         .task {
+            await viewModel.loadRecipes()
+        }
+        .refreshable {
             await viewModel.loadRecipes()
         }
     }
