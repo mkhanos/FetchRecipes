@@ -5,7 +5,7 @@
 //  Created by Momo Khan on 6/3/25.
 //
 
-enum RecipeEndpoints: APIEndpoint {
+enum RecipeEndpoint: APIEndpoint {
     case recipes
     case malformed
     case empty
