@@ -38,9 +38,9 @@ struct RecipesList: View {
                 }
                 Spacer()
                 if viewModel.recipes.isEmpty {
-                    Spacer()
-                    Text("No recipes available!")
-                    Spacer()
+                    ScrollView {
+                        Text("No recipes available!")
+                    }
                 } else {
                     ScrollView {
                         LazyVStack {
